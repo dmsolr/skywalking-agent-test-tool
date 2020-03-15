@@ -39,6 +39,8 @@ public class DataValidateService extends HttpServlet {
         ValidateData.class, new ValidateDataSerializer()
     ).create();
 
+    public static final String SERVLET_PATH = "/dataValidate";
+
     @Override
     protected void doPost(final HttpServletRequest req,
                           final HttpServletResponse resp) throws ServletException, IOException {

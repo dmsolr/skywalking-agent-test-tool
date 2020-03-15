@@ -31,6 +31,7 @@ import org.apache.skywalking.plugin.test.mockcollector.mock.rest.MockServiceInst
 import org.apache.skywalking.plugin.test.mockcollector.mock.rest.MockServiceRegisterServletHandler;
 import org.apache.skywalking.plugin.test.mockcollector.mock.rest.MockTraceSegmentCollectServletHandler;
 import org.apache.skywalking.plugin.test.mockcollector.service.ClearReceiveDataService;
+import org.apache.skywalking.plugin.test.mockcollector.service.DataValidateService;
 import org.apache.skywalking.plugin.test.mockcollector.service.GrpcAddressHttpService;
 import org.apache.skywalking.plugin.test.mockcollector.mock.MockInstancePingService;
 import org.apache.skywalking.plugin.test.mockcollector.mock.MockJVMMetricReportService;
@@ -72,6 +73,7 @@ public class Main {
             }
         }), "/status");
         servletContextHandler.addServlet(GrpcAddressHttpService.class, GrpcAddressHttpService.SERVLET_PATH);
+        servletContextHandler.addServlet(DataValidateService.class, DataValidateService.SERVLET_PATH);
         servletContextHandler.addServlet(ReceiveDataService.class, ReceiveDataService.SERVLET_PATH);
         servletContextHandler.addServlet(ClearReceiveDataService.class, ClearReceiveDataService.SERVLET_PATH);
 
