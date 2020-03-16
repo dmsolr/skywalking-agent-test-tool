@@ -18,6 +18,7 @@
 
 package org.apache.skywalking.plugin.test.mockcollector.service;
 
+import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.ByteArrayInputStream;
@@ -57,7 +58,7 @@ public class DataValidateService extends HttpServlet {
             writer.write("success");
             resp.setStatus(200);
         } catch (AssertFailedException exception) {
-            writer.write(exception.getMessage());
+            writer.write(Strings.nullToEmpty(exception.getMessage()));
             writer.write("\n");
             writer.write(dump);
             resp.setStatus(500);
