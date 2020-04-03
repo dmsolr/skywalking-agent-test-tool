@@ -19,8 +19,8 @@ package org.apache.skywalking.plugin.test.mockcollector.mock;
 
 import io.grpc.stub.StreamObserver;
 import org.apache.skywalking.apm.network.common.Commands;
-import org.apache.skywalking.apm.network.language.agent.v2.JVMMetricCollection;
-import org.apache.skywalking.apm.network.language.agent.v2.JVMMetricReportServiceGrpc;
+import org.apache.skywalking.apm.network.language.agent.v3.JVMMetricCollection;
+import org.apache.skywalking.apm.network.language.agent.v3.JVMMetricReportServiceGrpc;
 
 /**
  * Author Daming Email zteny@foxmail.com

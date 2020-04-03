@@ -19,16 +19,10 @@ package org.apache.skywalking.plugin.test.mockcollector.entity;
 
 public class ValidateData {
     public static ValidateData INSTANCE = new ValidateData();
-    private RegistryItem registryItem;
     private SegmentItems segmentItem;
 
-    public ValidateData() {
-        registryItem = new RegistryItem();
+    private  ValidateData() {
         segmentItem = new SegmentItems();
-    }
-
-    public RegistryItem getRegistryItem() {
-        return registryItem;
     }
 
     public SegmentItems getSegmentItem() {
@@ -36,8 +30,6 @@ public class ValidateData {
     }
 
     public static void clearData() {
-        System.out.println("Clear Data");
         INSTANCE.segmentItem = new SegmentItems();
-        INSTANCE.registryItem.getOperationNames().clear();
     }
 }

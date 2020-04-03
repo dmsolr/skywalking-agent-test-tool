@@ -34,7 +34,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <protocol.version>b512211334db26a9c1031ce7bacfa2bef99b1d89</protocol.version>
+        <protocol.version>a40ab435a1bd26b84fd0c07700d6f96d325b912d</protocol.version>
         <protocol.workingDirectory>${project.basedir}/target/protocol</protocol.workingDirectory>
         <protocol.repos>https://github.com/apache/skywalking-data-collect-protocol.git</protocol.repos>
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>

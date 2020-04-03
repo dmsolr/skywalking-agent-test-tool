@@ -41,8 +41,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.apache.skywalking.apm.network.common.KeyStringValuePair;
-import org.apache.skywalking.apm.network.language.agent.UniqueId;
-import org.apache.skywalking.apm.network.language.agent.v2.SegmentReference;
+import org.apache.skywalking.apm.network.language.agent.v3.SegmentReference;
 
 @Builder
 @ToString
@@ -122,13 +121,9 @@ public class Span {
     @ToString
     public static class SegmentRef {
         @Getter
-        private int parentEndpointId;
-        @Getter
         private String parentEndpoint;
         @Getter
-        private int networkAddressId;
-        @Getter
-        private int entryEndpointId;
+        private String networkAddress;
         @Getter
         private String refType;
         @Getter
@@ -136,31 +131,24 @@ public class Span {
         @Getter
         private String parentTraceSegmentId;
         @Getter
-        private int parentServiceInstanceId;
+        private String parentServiceInstance;
         @Getter
-        private String networkAddress;
+        private String entryEndpoint; // TODO
         @Getter
-        private String entryEndpoint;
-        @Getter
-        private int entryServiceInstanceId;
+        private String parentService;
+        //        @Getter
+        //        private String entryServiceInstance; // TODO
 
         public SegmentRef(SegmentReference ref) {
-            UniqueId segmentUniqueId = ref.getParentTraceSegmentId();
-            this.parentTraceSegmentId = String.join(
-                ".", Long.toString(segmentUniqueId.getIdParts(0)), Long.toString(segmentUniqueId
-                                                                                     .getIdParts(1)),
-                Long.toString(segmentUniqueId.getIdParts(2))
-            );
+            this.parentTraceSegmentId = ref.getParentTraceSegmentId();
             this.refType = ref.getRefType().toString();
             this.parentSpanId = ref.getParentSpanId();
-            this.entryEndpointId = ref.getEntryEndpointId();
-            this.networkAddressId = ref.getNetworkAddressId();
-            this.parentServiceInstanceId = ref.getParentServiceInstanceId();
-            this.parentEndpointId = ref.getParentEndpointId();
             this.parentEndpoint = ref.getParentEndpoint();
-            this.networkAddress = ref.getNetworkAddress();
-            this.entryEndpoint = ref.getEntryEndpoint();
-            this.entryServiceInstanceId = ref.getEntryServiceInstanceId();
+            this.parentService = ref.getParentService();
+            this.parentServiceInstance = ref.getParentServiceInstance();
+            this.parentTraceSegmentId = ref.getParentTraceSegmentId();
+            this.networkAddress = ref.getNetworkAddressUsedAtPeer();
+            this.parentSpanId = ref.getParentSpanId();
         }
 
     }
