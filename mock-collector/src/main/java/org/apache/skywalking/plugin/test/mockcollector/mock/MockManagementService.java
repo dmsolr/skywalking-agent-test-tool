@@ -23,17 +23,11 @@ import org.apache.skywalking.apm.network.common.Commands;
 import org.apache.skywalking.apm.network.management.InstancePingPkg;
 import org.apache.skywalking.apm.network.management.InstanceProperties;
 import org.apache.skywalking.apm.network.management.ManagementServiceGrpc;
-import org.apache.skywalking.plugin.test.mockcollector.entity.RegistryItem;
-import org.apache.skywalking.plugin.test.mockcollector.entity.ValidateData;
 
 public class MockManagementService extends ManagementServiceGrpc.ManagementServiceImplBase {
 
     @Override
     public void reportInstanceProperties(InstanceProperties request, StreamObserver<Commands> responseObserver) {
-        ValidateData.INSTANCE.getRegistryItem()
-                             .registryInstance(
-                                 new RegistryItem.Instance(request.getService(), request.getServiceInstance()));
-
         responseObserver.onNext(Commands.getDefaultInstance());
         responseObserver.onCompleted();
     }
