@@ -28,7 +28,7 @@ public class MockManagementService extends ManagementServiceGrpc.ManagementServi
 
     @Override
     public void reportInstanceProperties(InstanceProperties request, StreamObserver<Commands> responseObserver) {
-        responseObserver.onNext(Commands.getDefaultInstance());
+        responseObserver.onNext(Commands.newBuilder().build());
         responseObserver.onCompleted();
     }
 
