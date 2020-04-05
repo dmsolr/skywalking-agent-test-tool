@@ -18,15 +18,16 @@
 
 package org.apache.skywalking.plugin.test.mockcollector.mock.rest;
 
-import com.google.common.io.CharStreams;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.skywalking.apm.network.language.agent.v3.SegmentObject;
+import org.apache.skywalking.apm.network.common.Commands;
 import org.apache.skywalking.plugin.test.mockcollector.util.ProtoBufJsonUtils;
 
-public class MockTraceSegmentCollectServletHandler extends JettyJsonHandler {
-    public static final String SERVLET_PATH = "/v3/segments";
+public class MockManagementServiceReportPropertiesHandler extends JettyJsonHandler {
+    public static final String SERVLET_PATH = "/v3/management/reportProperties";
+    private final Gson gson = new Gson();
 
     @Override
     protected JsonElement doGet(final HttpServletRequest req) {
@@ -35,14 +36,6 @@ public class MockTraceSegmentCollectServletHandler extends JettyJsonHandler {
 
     @Override
     protected JsonElement doPost(final HttpServletRequest req) throws IOException {
-        String json = CharStreams.toString(req.getReader());
-
-        SegmentObject.Builder upstreamSegmentBuilder = SegmentObject.newBuilder();
-        ProtoBufJsonUtils.fromJSON(json, upstreamSegmentBuilder);
-
-        //
-        //        ValidateData.INSTANCE.getSegmentItem()
-        //                             .addSegmentItem(traceSegmentObject.getServiceId(), segmentBuilder.build());
-        return null;
+        return gson.fromJson(ProtoBufJsonUtils.toJSON(Commands.newBuilder().build()), JsonElement.class);
     }
 }

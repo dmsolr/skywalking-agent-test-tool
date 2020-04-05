@@ -21,6 +21,7 @@ import io.grpc.netty.NettyServerBuilder;
 import io.netty.channel.local.LocalAddress;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +67,7 @@ public class Main {
             @Override
             protected void doGet(HttpServletRequest req,
                                  HttpServletResponse resp) throws ServletException, IOException {
+                System.out.println(">>>>>>>>>>>>>>>>>>.");
                 resp.setStatus(200);
                 resp.getWriter().write("Success");
                 resp.getWriter().flush();

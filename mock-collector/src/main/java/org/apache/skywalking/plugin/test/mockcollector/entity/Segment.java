@@ -17,46 +17,18 @@
 
 package org.apache.skywalking.plugin.test.mockcollector.entity;
 
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
+@ToString
+@Builder
+@AllArgsConstructor
+@Getter
 public class Segment {
-
-    @Setter
-    @Getter
     private String segmentId;
-    @Setter
-    @Getter
-    private String traceId;
-    @Setter
-    @Getter
-    private String serviceId;
-    @Setter
-    @Getter
-    private String serviceInstanceId;
-    @Setter
-    @Getter
-    private String endpointName;
-    @Setter
-    @Getter
-    private String endpointId;
-    @Setter
-    @Getter
-    private long startTime;
-    @Setter
-    @Getter
-    private long endTime;
-    @Setter
-    @Getter
-    private int latency;
-    @Setter
-    @Getter
-    private int isError;
-    @Setter
-    @Getter
-    private byte[] dataBinary;
-    @Setter
-    @Getter
-    private int version;
+    private List<Span> spans;
 }
 

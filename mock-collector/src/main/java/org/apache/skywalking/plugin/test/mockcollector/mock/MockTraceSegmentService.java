@@ -17,14 +17,20 @@
 
 package org.apache.skywalking.plugin.test.mockcollector.mock;
 
+import com.google.common.collect.Lists;
 import io.grpc.stub.StreamObserver;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.skywalking.apm.network.common.Commands;
+import org.apache.skywalking.apm.network.common.KeyStringValuePair;
+import org.apache.skywalking.apm.network.language.agent.v3.Log;
 import org.apache.skywalking.apm.network.language.agent.v3.SegmentObject;
-import org.apache.skywalking.apm.network.language.agent.v3.SpanType;
+import org.apache.skywalking.apm.network.language.agent.v3.SegmentReference;
+import org.apache.skywalking.apm.network.language.agent.v3.SpanObject;
 import org.apache.skywalking.apm.network.language.agent.v3.TraceSegmentReportServiceGrpc;
+import org.apache.skywalking.plugin.test.mockcollector.entity.Segment;
+import org.apache.skywalking.plugin.test.mockcollector.entity.Span;
 import org.apache.skywalking.plugin.test.mockcollector.entity.ValidateData;
-import org.apache.skywalking.plugin.test.mockcollector.util.TraceSegmentHandler;
 
 @Slf4j
 public class MockTraceSegmentService extends TraceSegmentReportServiceGrpc.TraceSegmentReportServiceImplBase {
@@ -37,23 +43,40 @@ public class MockTraceSegmentService extends TraceSegmentReportServiceGrpc.Trace
                 if (segmentObject.getSpansList().size() == 0) {
                     return;
                 }
-                TraceSegmentHandler segmentHandler = new TraceSegmentHandler();
-                segmentHandler.parseSegment(segmentObject);
 
-                segmentObject.getSpansList().forEach(spanObject -> {
-                    if (spanObject.getSpanId() == 0) {
-                        segmentHandler.parseFirst(spanObject, segmentObject);
+                Segment.SegmentBuilder builder = Segment.builder();
+                List<Span> spans = Lists.newArrayList();
+                for (SpanObject spanObject : segmentObject.getSpansList()) {
+                    Span.SpanBuilder spanBuilder = Span.builder();
+                    spanBuilder.operationName(spanObject.getOperationName())
+                               .parentSpanId(spanObject.getParentSpanId())
+                               .spanId(spanObject.getSpanId())
+                               .spanLayer(spanObject.getSpanLayer().name())
+                               .startTime(spanObject.getStartTime())
+                               .endTime(spanObject.getEndTime())
+                               .componentId(spanObject.getComponentId())
+                               .componentName(spanObject.getComponent())
+                               .isError(spanObject.getIsError())
+                               .spanType(spanObject.getSpanType().name())
+                               .peer(spanObject.getPeer());
+
+                    for (Log log : spanObject.getLogsList()) {
+                        spanBuilder.logEvent(log.getDataList());
+                    }
+                    for (KeyStringValuePair tags : spanObject.getTagsList()) {
+                        spanBuilder.tags(tags.getKey(), tags.getValue());
+                    }
+                    for (SegmentReference ref : spanObject.getRefsList()) {
+                        // FIXME parentServiceInstance
+                        spanBuilder.ref(new Span.SegmentRef(ref));
                     }
 
-                    if (SpanType.Entry.equals(spanObject.getSpanType())) {
-                        segmentHandler.parseEntry(spanObject, segmentObject);
-                    } else if (SpanType.Local.equals(spanObject.getSpanType())) {
-                        // TODO
-                    }
-                });
+                    spans.add(spanBuilder.build());
+                }
+                builder.segmentId(segmentObject.getTraceSegmentId()).spans(spans);
 
                 ValidateData.INSTANCE.getSegmentItem()
-                                     .addSegmentItem(segmentObject.getService(), segmentHandler.build());
+                                     .addSegmentItem(segmentObject.getService(), builder.build());
             }
 
             @Override
