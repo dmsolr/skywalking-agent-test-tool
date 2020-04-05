@@ -74,7 +74,7 @@ public class SegmentItemsAssert {
 
             for (SegmentRef ref : span.refs()) {
                 String actualParentSegmentId = ParentSegmentIdExpressParser.parse(ref.parentTraceSegmentId(), actual);
-                ref.parentTraceSegmentId(actualParentSegmentId);
+//                ref.parentTraceSegmentId(actualParentSegmentId); FIXME
             }
         }
     }
