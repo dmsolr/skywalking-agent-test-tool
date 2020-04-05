@@ -97,6 +97,11 @@ public class SegmentForRead implements Segment {
         }
 
         @Override
+        public void parentTraceSegmentId(final String parentSegmentId) {
+            this.parentTraceSegmentId = parentTraceSegmentId;
+        }
+
+        @Override
         public String parenService() {
             return parenService;
         }

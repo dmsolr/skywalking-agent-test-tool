@@ -28,6 +28,8 @@ public interface SegmentRef {
 
     String parentTraceSegmentId();
 
+    void parentTraceSegmentId(String parentSegmentId);
+
     String parentServiceInstance();
 
     String parenService();
