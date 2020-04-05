@@ -24,6 +24,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.skywalking.apm.network.language.agent.v3.SegmentObject;
 import org.apache.skywalking.plugin.test.mockcollector.util.ProtoBufJsonUtils;
+import org.apache.skywalking.plugin.test.mockcollector.util.TraceSegmentHandler;
 
 public class MockTraceSegmentCollectServletHandler extends JettyJsonHandler {
     public static final String SERVLET_PATH = "/v3/segments";
@@ -40,9 +41,7 @@ public class MockTraceSegmentCollectServletHandler extends JettyJsonHandler {
         SegmentObject.Builder upstreamSegmentBuilder = SegmentObject.newBuilder();
         ProtoBufJsonUtils.fromJSON(json, upstreamSegmentBuilder);
 
-        //
-        //        ValidateData.INSTANCE.getSegmentItem()
-        //                             .addSegmentItem(traceSegmentObject.getServiceId(), segmentBuilder.build());
+        TraceSegmentHandler.parseSegment(upstreamSegmentBuilder.build());
         return null;
     }
 }

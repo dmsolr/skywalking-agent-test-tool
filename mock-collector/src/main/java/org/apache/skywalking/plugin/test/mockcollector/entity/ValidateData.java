@@ -21,6 +21,8 @@ public class ValidateData {
     public static ValidateData INSTANCE = new ValidateData();
     private SegmentItems segmentItem;
 
+    private boolean registered = false;
+
     private  ValidateData() {
         segmentItem = new SegmentItems();
     }
@@ -29,7 +31,12 @@ public class ValidateData {
         return segmentItem;
     }
 
+    public boolean isRegistered() {
+        return registered;
+    }
+
     public static void clearData() {
+        INSTANCE.registered = false;
         INSTANCE.segmentItem = new SegmentItems();
     }
 }
