@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.skywalking.apm.network.common.Commands;
+import org.apache.skywalking.apm.network.common.v3.Commands;
 import org.apache.skywalking.plugin.test.mockcollector.util.ProtoBufJsonUtils;
 
 public class MockManagementServiceKeepAliveHandler extends JettyJsonHandler {

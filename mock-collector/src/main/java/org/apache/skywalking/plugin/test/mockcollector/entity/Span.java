@@ -40,7 +40,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.apache.skywalking.apm.network.common.KeyStringValuePair;
+import org.apache.skywalking.apm.network.common.v3.KeyStringValuePair;
 import org.apache.skywalking.apm.network.language.agent.v3.SegmentReference;
 
 @Builder
@@ -119,25 +119,15 @@ public class Span {
     }
 
     @ToString
+    @Getter
     public static class SegmentRef {
-        @Getter
         private String parentEndpoint;
-        @Getter
         private String networkAddress;
-        @Getter
         private String refType;
-        @Getter
         private int parentSpanId;
-        @Getter
         private String parentTraceSegmentId;
-        @Getter
         private String parentServiceInstance;
-        @Getter
-        private String entryEndpoint; // TODO
-        @Getter
         private String parentService;
-        //        @Getter
-        //        private String entryServiceInstance; // TODO
 
         public SegmentRef(SegmentReference ref) {
             this.parentTraceSegmentId = ref.getParentTraceSegmentId();

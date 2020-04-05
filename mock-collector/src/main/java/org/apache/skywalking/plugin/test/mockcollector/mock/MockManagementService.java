@@ -19,10 +19,10 @@
 package org.apache.skywalking.plugin.test.mockcollector.mock;
 
 import io.grpc.stub.StreamObserver;
-import org.apache.skywalking.apm.network.common.Commands;
-import org.apache.skywalking.apm.network.management.InstancePingPkg;
-import org.apache.skywalking.apm.network.management.InstanceProperties;
-import org.apache.skywalking.apm.network.management.ManagementServiceGrpc;
+import org.apache.skywalking.apm.network.common.v3.Commands;
+import org.apache.skywalking.apm.network.management.v3.InstancePingPkg;
+import org.apache.skywalking.apm.network.management.v3.InstanceProperties;
+import org.apache.skywalking.apm.network.management.v3.ManagementServiceGrpc;
 
 public class MockManagementService extends ManagementServiceGrpc.ManagementServiceImplBase {
 
