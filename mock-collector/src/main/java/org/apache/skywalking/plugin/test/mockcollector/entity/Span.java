@@ -60,6 +60,7 @@ public class Span {
     private String spanType;
     private String peer;
     private int peerId;
+    private boolean skipAnalysis;
     private List<KeyValuePair> tags = new ArrayList<>();
     private List<LogEvent> logs = new ArrayList<>();
     private List<SegmentRef> refs = new ArrayList<>();
@@ -106,16 +107,11 @@ public class Span {
 
     }
 
+    @Getter
+    @AllArgsConstructor
     public static class KeyValuePair {
-        @Getter
         private String key;
-        @Getter
         private String value;
-
-        public KeyValuePair(String key, String value) {
-            this.key = key;
-            this.value = value;
-        }
     }
 
     @ToString
@@ -128,6 +124,7 @@ public class Span {
         private String parentTraceSegmentId;
         private String parentServiceInstance;
         private String parentService;
+        private String traceId;
 
         public SegmentRef(SegmentReference ref) {
             this.parentTraceSegmentId = ref.getParentTraceSegmentId();
@@ -139,6 +136,7 @@ public class Span {
             this.parentTraceSegmentId = ref.getParentTraceSegmentId();
             this.networkAddress = ref.getNetworkAddressUsedAtPeer();
             this.parentSpanId = ref.getParentSpanId();
+            this.traceId = ref.getTraceId();
         }
 
     }

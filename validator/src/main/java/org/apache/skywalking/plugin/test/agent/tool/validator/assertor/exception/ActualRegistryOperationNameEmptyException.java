@@ -17,7 +17,6 @@
 
 package org.apache.skywalking.plugin.test.agent.tool.validator.assertor.exception;
 
-import org.apache.skywalking.plugin.test.agent.tool.validator.entity.RegistryOperationName;
 import org.apache.skywalking.plugin.test.agent.tool.validator.exception.AssertFailedException;
 
 public class ActualRegistryOperationNameEmptyException extends AssertFailedException {

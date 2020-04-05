@@ -18,14 +18,9 @@
 package org.apache.skywalking.plugin.test.agent.tool.validator.entity;
 
 public interface SegmentRef {
+    String parentEndpoint();
 
-    String parentEndpointId();
-
-    String parentEndpointName();
-
-    String networkAddressId();
-
-    String entryEndpointId();
+    String networkAddress();
 
     String refType();
 
@@ -33,13 +28,9 @@ public interface SegmentRef {
 
     String parentTraceSegmentId();
 
-    String parentServiceInstanceId();
+    String parentServiceInstance();
 
-    String networkAddress();
+    String parenService();
 
-    String entryEndpointName();
-
-    void parentTraceSegmentId(String parentTraceSegmentId);
-
-    String entryServiceInstanceId();
+    String traceId();
 }

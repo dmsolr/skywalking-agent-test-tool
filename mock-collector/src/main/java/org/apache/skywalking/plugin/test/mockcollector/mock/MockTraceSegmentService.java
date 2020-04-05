@@ -70,7 +70,6 @@ public class MockTraceSegmentService extends TraceSegmentReportServiceGrpc.Trace
                         // FIXME parentServiceInstance
                         spanBuilder.ref(new Span.SegmentRef(ref));
                     }
-
                     spans.add(spanBuilder.build());
                 }
                 builder.segmentId(segmentObject.getTraceSegmentId()).spans(spans);
